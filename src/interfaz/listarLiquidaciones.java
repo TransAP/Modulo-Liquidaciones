@@ -11,8 +11,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -22,8 +29,13 @@ public class listarLiquidaciones extends javax.swing.JFrame {
 
     PreparedStatement ps;
     ResultSet rs;
+    conexion conexionBase = new conexion();
+    Connection con = null;
+    
     String sw="1";
     String drives = "";
+    
+    int sw2=0;
     
     int boton;//guarda el valor de un boton de listado presionado
     
@@ -57,6 +69,7 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         btnReparar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -146,6 +159,14 @@ public class listarLiquidaciones extends javax.swing.JFrame {
             }
         });
 
+        btnImprimir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnImprimir.setText("IMPRIMIR");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,36 +175,39 @@ public class listarLiquidaciones extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1268, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtGestion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel3)))
+                                .addGap(114, 114, 114)
+                                .addComponent(jLabel3))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPlaca)
                             .addComponent(cbRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnReparar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGeneral)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbGestion, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReparar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(103, 103, 103)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnImprimir)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -191,34 +215,37 @@ public class listarLiquidaciones extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(txtGestion))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtGestion))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnGeneral)
+                                    .addComponent(jLabel4)
+                                    .addComponent(cbGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnEditar)
+                                        .addComponent(btnNuevo)
+                                        .addComponent(btnImprimir)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnReparar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnEditar)
-                                .addComponent(btnNuevo)))
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnListar)
                             .addComponent(cbRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGeneral)
-                            .addComponent(jLabel4)
-                            .addComponent(cbGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReparar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel3))
+                        .addGap(17, 17, 17)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -234,22 +261,17 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         
         String gestion = (String)cbGestion.getSelectedItem();
         
-        try{          
-            PreparedStatement ps = null;
-            ResultSet rs= null;
-            
-            conexion conexionBase = new conexion();
-            Connection con = null;
+        try{                                            
             con = conexionBase.getConection();
             
             String sql = "";
             if(gestion=="TODO"){
-                sql = "SELECT correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, placa, cliente, drives, liquido_pagable FROM comprobante WHERE ruta=?";
+                sql = "SELECT correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, placa, cliente, drives, liquido_pagable FROM comprobante WHERE ruta=? AND estado='activo'";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, sw);
                 rs = ps.executeQuery();
             }else{
-                sql = "SELECT correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, placa, cliente, drives, liquido_pagable FROM comprobante WHERE ruta=? AND gestion=?";
+                sql = "SELECT correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, placa, cliente, drives, liquido_pagable FROM comprobante WHERE ruta=? AND gestion=? AND estado='activo'";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, sw);
                 ps.setString(2, gestion);
@@ -321,13 +343,7 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         
         String gestion = (String)cbGestion.getSelectedItem();
         
-        try{            
-            
-            PreparedStatement ps = null;
-            ResultSet rs= null;
-            
-            conexion conexionBase = new conexion();
-            Connection con = null;
+        try{                        
             con = conexionBase.getConection();
             
             String sql ="";
@@ -388,24 +404,18 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         
         String gestion = (String)cbGestion.getSelectedItem();
         
-        try{
-                        
-            PreparedStatement ps = null;
-            ResultSet rs= null;
-            
-            conexion conexionBase = new conexion();
-            Connection con = null;
+        try{                        
             con = conexionBase.getConection();
             
             String sql = "";
             
             if(gestion=="TODO"){
-                sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=?";
+                sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=? AND estado='activo'";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, txtPlaca.getText().toUpperCase());
                 rs = ps.executeQuery();
             }else{
-                sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=? AND gestion=?";
+                sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=? AND gestion=? AND='activo'";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, txtPlaca.getText().toUpperCase());
                 ps.setString(2, gestion);
@@ -498,11 +508,6 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         
         String drives="", correlativo="", vacio="";
         try{
-            PreparedStatement ps = null;
-            ResultSet rs= null;
-            
-            conexion conexionBase = new conexion();
-            Connection con = null;
             con = conexionBase.getConection();
             
             String sql = "SELECT correlativo, drive1, drive2, drive3, drive4, drive5, drive6 FROM comprobante WHERE estado='activo'";
@@ -600,6 +605,71 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         new registrarLiquidacion().setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+          
+        int fila;
+        String a = "";
+        String flete ="";
+        
+        try {
+            fila = tbLiquidaciones.getSelectedRow();
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(null, "NO SE A SELECCIONADO NINGUNA FILA");
+            } else {
+                DefaultTableModel modelo = (DefaultTableModel) tbLiquidaciones.getModel();
+                a = (String) modelo.getValueAt(fila, 0);
+            }
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex + "\nInténtelo nuevamente", " .::Error En la Operacion::.", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        try{
+            con = conexionBase.getConection(); 
+            String sql = "SELECT flete4 FROM comprobante WHERE correlativo=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, a);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                flete=rs.getString("flete4");               
+            }else{
+                JOptionPane.showMessageDialog(null, "NO EXISTE EL COMPROBANTE");
+            }
+        }catch(SQLException ex){
+            System.err.println(ex.toString());
+        }
+        if (flete.equals("0.00")) {
+            sw2 = 1;
+        } else {
+            sw2 = 0;
+        }
+        
+        try{
+            Map<String,Object> parametros = new HashMap<String,Object>();
+            parametros.put("x", a);
+            
+            String RutaReporte="";
+            
+            if(sw2==0){
+                RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion.jasper";  // PARA EMPAQUETAR
+                //RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion.jasper"; // PARA DESARROLLO
+            }else{
+                RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion_2.jasper";  // PARA EMPAQUETAR
+                //RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion_2.jasper"; // PARA DESARROLLO
+            }
+            JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile(RutaReporte);
+            
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, parametros, con);
+            JasperViewer view = new JasperViewer(print, false);
+            view.setTitle("IMPRESION DE LIQUIDACION");
+            view.setVisible(true);
+            
+        }catch(Exception e){
+            System.err.println(e);
+            JOptionPane.showMessageDialog(null,"ERROR AL CARGAR EL REPORTE");
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -640,6 +710,7 @@ public class listarLiquidaciones extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGeneral;
+    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnReparar;

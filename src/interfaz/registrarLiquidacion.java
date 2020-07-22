@@ -782,6 +782,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         }
         btnImprimir.setEnabled(true);
         btnRegistrar.setEnabled(false);
+        btnTotal.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void coNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coNacionalActionPerformed
