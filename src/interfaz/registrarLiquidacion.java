@@ -986,7 +986,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
                         break;
                 case 2: fechacon = dcFechaConformidad.getDate();
                         calendar.setTime(fechacon);
-                        calendar.add(DAY_OF_YEAR,20);
+                        calendar.add(DAY_OF_YEAR,30);
                         fechapago = calendar.getTime();
                         fechaPago = sdf.format(fechapago);
                         txtFechaPago.setText(fechaPago);
@@ -997,7 +997,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
                         break;
                 case 5: fechacon = dcFechaConformidad.getDate();
                         calendar.setTime(fechacon);
-                        calendar.add(DAY_OF_YEAR,20);
+                        calendar.add(DAY_OF_YEAR,30);
                         fechapago = calendar.getTime();
                         fechaPago = sdf.format(fechapago);
                         txtFechaPago.setText(fechaPago);
