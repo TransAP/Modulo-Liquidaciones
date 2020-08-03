@@ -982,8 +982,10 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         Calendar calendar = Calendar.getInstance();
         try{
             switch (sw){
+                // nacional
                 case 1: fecha1="";
                         break;
+                // internacional
                 case 2: fechacon = dcFechaConformidad.getDate();
                         calendar.setTime(fechacon);
                         calendar.add(DAY_OF_YEAR,30);
@@ -991,13 +993,21 @@ public class registrarLiquidacion extends javax.swing.JFrame {
                         fechaPago = sdf.format(fechapago);
                         txtFechaPago.setText(fechaPago);
                         break;
+                //cisternas
                 case 3: fecha1="";
                         break;
-                case 4: fecha1="";
-                        break;
-                case 5: fechacon = dcFechaConformidad.getDate();
+                //cobija
+                case 4: fechacon = dcFechaConformidad.getDate();
                         calendar.setTime(fechacon);
                         calendar.add(DAY_OF_YEAR,30);
+                        fechapago = calendar.getTime();
+                        fechaPago = sdf.format(fechapago);
+                        txtFechaPago.setText(fechaPago);
+                        break;
+                //guayaramerin
+                case 5: fechacon = dcFechaConformidad.getDate();
+                        calendar.setTime(fechacon);
+                        calendar.add(DAY_OF_YEAR,20);
                         fechapago = calendar.getTime();
                         fechaPago = sdf.format(fechapago);
                         txtFechaPago.setText(fechaPago);
