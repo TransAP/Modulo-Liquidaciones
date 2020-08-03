@@ -997,12 +997,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
                 case 3: fecha1="";
                         break;
                 //cobija
-                case 4: fechacon = dcFechaConformidad.getDate();
-                        calendar.setTime(fechacon);
-                        calendar.add(DAY_OF_YEAR,30);
-                        fechapago = calendar.getTime();
-                        fechaPago = sdf.format(fechapago);
-                        txtFechaPago.setText(fechaPago);
+                case 4: fecha1="";
                         break;
                 //guayaramerin
                 case 5: fechacon = dcFechaConformidad.getDate();
