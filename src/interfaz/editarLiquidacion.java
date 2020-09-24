@@ -569,7 +569,7 @@ public class editarLiquidacion extends javax.swing.JFrame {
             
             ps.setString(34, DarFormato(txtTotalLiquidar.getText()).toUpperCase());
             
-            if(txtDrive1.getText().isEmpty()==false){
+            /*if(txtDrive1.getText().isEmpty()==false){
                 suma_drives = suma_drives+"("+txtDrive1.getText()+")";
             }
             if(txtDrive2.getText().isEmpty()==false){
@@ -586,7 +586,7 @@ public class editarLiquidacion extends javax.swing.JFrame {
             }
             if(txtDrive6.getText().isEmpty()==false){
                 suma_drives = suma_drives+"("+txtDrive6.getText()+")";
-            }
+            }*/
             ps.setString(35, suma_drives);
             
             ps.setString(36, txtDetalle1.getText().toUpperCase());
@@ -663,6 +663,26 @@ public class editarLiquidacion extends javax.swing.JFrame {
         Calcular_Total();
         String numero2=txtLiquidoPagable.getText();
         Numero_a_Letra(numero2);
+        
+        if (txtDrive1.getText().isEmpty() == false) {
+            suma_drives = suma_drives + "(" + txtDrive1.getText() + ")";
+        }
+        if (txtDrive2.getText().isEmpty() == false) {
+            suma_drives = suma_drives + "(" + txtDrive2.getText() + ")";
+        }
+        if (txtDrive3.getText().isEmpty() == false) {
+            suma_drives = suma_drives + "(" + txtDrive3.getText() + ")";
+        }
+        if (txtDrive4.getText().isEmpty() == false) {
+            suma_drives = suma_drives + "(" + txtDrive4.getText() + ")";
+        }
+        if (txtDrive5.getText().isEmpty() == false) {
+            suma_drives = suma_drives + "(" + txtDrive5.getText() + ")";
+        }
+        if (txtDrive6.getText().isEmpty() == false) {
+            suma_drives = suma_drives + "(" + txtDrive6.getText() + ")";
+        }
+        System.out.println(suma_drives+"aqui");
     }//GEN-LAST:event_btnTotalActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
