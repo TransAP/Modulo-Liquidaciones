@@ -38,6 +38,7 @@ public class editarLiquidacion extends javax.swing.JFrame {
     int sw=0,sw2=0;
     DecimalFormat formatea = new DecimalFormat("###,###.##",DecimalFormatSymbols.getInstance(Locale.CANADA));
     DecimalFormat formatea2 = new DecimalFormat("###.##",DecimalFormatSymbols.getInstance(Locale.CANADA));
+    String suma_drives="";
     
     public editarLiquidacion() {
         initComponents();
@@ -524,7 +525,7 @@ public class editarLiquidacion extends javax.swing.JFrame {
                 
         try{
             con = conexionBase.getConection();
-            ps = con.prepareStatement("UPDATE comprobante SET fecha=?, fecha_conformidad=?, fecha_pago=?, fecha_pago_real=?, empresa=?, propietario=?, chofer=?, cliente=?, placa=?, descripcion1=?, drive1=?, factura1=?, flete1=?, descripcion2=?, drive2=?, factura2=?, flete2=?, descripcion3=?, drive3=?, factura3=?, flete3=?, descripcion4=?, drive4=?, factura4=?, flete4=?, descripcion5=?, drive5=?, factura5=?, flete5=?, descripcion6=?, drive6=?, factura6=?, flete6=?, total_fletes=?, detalle1=?, fecha1=?, comprobante1=?, importe1=?, detalle2=?, fecha2=?, comprobante2=?, importe2=?, detalle3=?, fecha3=?, comprobante3=?, importe3=?, detalle4=?, fecha4=?, comprobante4=?, importe4=?, detalle5=?, fecha5=?, comprobante5=?, importe5=?, detalle6=?, fecha6=?, comprobante6=?, importe6=?, total_anticipos=?, retencion=?, porcentaje=?, rastreo=?, descripcion_rastreo=?, semirremolque=?, codigo_interno=?, deduccion1=?, otros1=?, deduccion2=?, otros2=?, deduccion3=?, otros3=?, deduccion4=?, otros4=?, total_deducciones=?, liquido_pagable=?, literal=? WHERE correlativo=?");
+            ps = con.prepareStatement("UPDATE comprobante SET fecha=?, fecha_conformidad=?, fecha_pago=?, fecha_pago_real=?, empresa=?, propietario=?, chofer=?, cliente=?, placa=?, descripcion1=?, drive1=?, factura1=?, flete1=?, descripcion2=?, drive2=?, factura2=?, flete2=?, descripcion3=?, drive3=?, factura3=?, flete3=?, descripcion4=?, drive4=?, factura4=?, flete4=?, descripcion5=?, drive5=?, factura5=?, flete5=?, descripcion6=?, drive6=?, factura6=?, flete6=?, total_fletes=?, drives=?, detalle1=?, fecha1=?, comprobante1=?, importe1=?, detalle2=?, fecha2=?, comprobante2=?, importe2=?, detalle3=?, fecha3=?, comprobante3=?, importe3=?, detalle4=?, fecha4=?, comprobante4=?, importe4=?, detalle5=?, fecha5=?, comprobante5=?, importe5=?, detalle6=?, fecha6=?, comprobante6=?, importe6=?, total_anticipos=?, retencion=?, porcentaje=?, rastreo=?, descripcion_rastreo=?, semirremolque=?, codigo_interno=?, deduccion1=?, otros1=?, deduccion2=?, otros2=?, deduccion3=?, otros3=?, deduccion4=?, otros4=?, total_deducciones=?, liquido_pagable=?, literal=? WHERE correlativo=?");
             
             ps.setString(1, txtFecha.getText().toUpperCase());
             ps.setString(2, txtFechaConformidad.getText().toUpperCase());
@@ -568,57 +569,77 @@ public class editarLiquidacion extends javax.swing.JFrame {
             
             ps.setString(34, DarFormato(txtTotalLiquidar.getText()).toUpperCase());
             
-            ps.setString(35, txtDetalle1.getText().toUpperCase());
-            ps.setString(36, txtFecha1.getText().toUpperCase());
-            ps.setString(37, txtComprobante1.getText().toUpperCase());
-            ps.setString(38, DarFormato(txtImporte1.getText()).toUpperCase());
+            if(txtDrive1.getText().isEmpty()==false){
+                suma_drives = suma_drives+"("+txtDrive1.getText()+")";
+            }
+            if(txtDrive2.getText().isEmpty()==false){
+                suma_drives = suma_drives+"("+txtDrive2.getText()+")";
+            }
+            if(txtDrive3.getText().isEmpty()==false){
+                suma_drives = suma_drives+"("+txtDrive3.getText()+")";
+            }
+            if(txtDrive4.getText().isEmpty()==false){
+                suma_drives = suma_drives+"("+txtDrive4.getText()+")";
+            }
+            if(txtDrive5.getText().isEmpty()==false){
+                suma_drives = suma_drives+"("+txtDrive5.getText()+")";
+            }
+            if(txtDrive6.getText().isEmpty()==false){
+                suma_drives = suma_drives+"("+txtDrive6.getText()+")";
+            }
+            ps.setString(35, suma_drives);
             
-            ps.setString(39, txtDetalle2.getText().toUpperCase());
-            ps.setString(40, txtFecha2.getText().toUpperCase());
-            ps.setString(41, txtComprobante2.getText().toUpperCase());
-            ps.setString(42, DarFormato(txtImporte2.getText()).toUpperCase());
+            ps.setString(36, txtDetalle1.getText().toUpperCase());
+            ps.setString(37, txtFecha1.getText().toUpperCase());
+            ps.setString(38, txtComprobante1.getText().toUpperCase());
+            ps.setString(39, DarFormato(txtImporte1.getText()).toUpperCase());
             
-            ps.setString(43, txtDetalle3.getText().toUpperCase());
-            ps.setString(44, txtFecha3.getText().toUpperCase());
-            ps.setString(45, txtComprobante3.getText().toUpperCase());
-            ps.setString(46, DarFormato(txtImporte3.getText()).toUpperCase());
+            ps.setString(40, txtDetalle2.getText().toUpperCase());
+            ps.setString(41, txtFecha2.getText().toUpperCase());
+            ps.setString(42, txtComprobante2.getText().toUpperCase());
+            ps.setString(43, DarFormato(txtImporte2.getText()).toUpperCase());
             
-            ps.setString(47, txtDetalle4.getText().toUpperCase());
-            ps.setString(48, txtFecha4.getText().toUpperCase());
-            ps.setString(49, txtComprobante4.getText().toUpperCase());
-            ps.setString(50, DarFormato(txtImporte4.getText()).toUpperCase());
+            ps.setString(44, txtDetalle3.getText().toUpperCase());
+            ps.setString(45, txtFecha3.getText().toUpperCase());
+            ps.setString(46, txtComprobante3.getText().toUpperCase());
+            ps.setString(47, DarFormato(txtImporte3.getText()).toUpperCase());
             
-            ps.setString(51, txtDetalle5.getText().toUpperCase());
-            ps.setString(52, txtFecha5.getText().toUpperCase());
-            ps.setString(53, txtComprobante5.getText().toUpperCase());
-            ps.setString(54, DarFormato(txtImporte5.getText()).toUpperCase());
+            ps.setString(48, txtDetalle4.getText().toUpperCase());
+            ps.setString(49, txtFecha4.getText().toUpperCase());
+            ps.setString(50, txtComprobante4.getText().toUpperCase());
+            ps.setString(51, DarFormato(txtImporte4.getText()).toUpperCase());
             
-            ps.setString(55, txtDetalle6.getText().toUpperCase());
-            ps.setString(56, txtFecha6.getText().toUpperCase());
-            ps.setString(57, txtComprobante6.getText().toUpperCase());
-            ps.setString(58, DarFormato(txtImporte6.getText()).toUpperCase());
+            ps.setString(52, txtDetalle5.getText().toUpperCase());
+            ps.setString(53, txtFecha5.getText().toUpperCase());
+            ps.setString(54, txtComprobante5.getText().toUpperCase());
+            ps.setString(55, DarFormato(txtImporte5.getText()).toUpperCase());
             
-            ps.setString(59, DarFormato(txtTotalAnticipos.getText()).toUpperCase());
+            ps.setString(56, txtDetalle6.getText().toUpperCase());
+            ps.setString(57, txtFecha6.getText().toUpperCase());
+            ps.setString(58, txtComprobante6.getText().toUpperCase());
+            ps.setString(59, DarFormato(txtImporte6.getText()).toUpperCase());
             
-            ps.setString(60, DarFormato(txtRetencion.getText()).toUpperCase());
-            ps.setString(61, txtPorcentaje.getText().toUpperCase());
-            ps.setString(62, DarFormato(txtRastreo.getText()).toUpperCase());
-            ps.setString(63, txtRastreoDetalle.getText().toUpperCase());
-            ps.setString(64, DarFormato(txtSemirremolque.getText()).toUpperCase());
-            ps.setString(65, txtCodigoSemirremolque.getText().toUpperCase());
-            ps.setString(66, txtDeduccion1.getText().toUpperCase());
-            ps.setString(67, DarFormato(txtOtros1.getText()).toUpperCase());
-            ps.setString(68, txtDeduccion2.getText().toUpperCase());
-            ps.setString(69, DarFormato(txtOtros2.getText()).toUpperCase());
-            ps.setString(70, txtDeduccion3.getText().toUpperCase());
-            ps.setString(71, DarFormato(txtOtros3.getText()).toUpperCase());
-            ps.setString(72, txtDeduccion4.getText().toUpperCase());
-            ps.setString(73, DarFormato(txtOtros4.getText()).toUpperCase());
-            ps.setString(74, DarFormato(txtTotalDeducciones.getText()).toUpperCase());
-            ps.setString(75, DarFormato(txtLiquidoPagable.getText()).toUpperCase());
-            ps.setString(76, txtLiteral.getText().toUpperCase());
+            ps.setString(60, DarFormato(txtTotalAnticipos.getText()).toUpperCase());
             
-            ps.setString(77, txtCorrelativo.getText().toUpperCase());
+            ps.setString(61, DarFormato(txtRetencion.getText()).toUpperCase());
+            ps.setString(62, txtPorcentaje.getText().toUpperCase());
+            ps.setString(63, DarFormato(txtRastreo.getText()).toUpperCase());
+            ps.setString(64, txtRastreoDetalle.getText().toUpperCase());
+            ps.setString(65, DarFormato(txtSemirremolque.getText()).toUpperCase());
+            ps.setString(66, txtCodigoSemirremolque.getText().toUpperCase());
+            ps.setString(67, txtDeduccion1.getText().toUpperCase());
+            ps.setString(68, DarFormato(txtOtros1.getText()).toUpperCase());
+            ps.setString(69, txtDeduccion2.getText().toUpperCase());
+            ps.setString(70, DarFormato(txtOtros2.getText()).toUpperCase());
+            ps.setString(71, txtDeduccion3.getText().toUpperCase());
+            ps.setString(72, DarFormato(txtOtros3.getText()).toUpperCase());
+            ps.setString(73, txtDeduccion4.getText().toUpperCase());
+            ps.setString(74, DarFormato(txtOtros4.getText()).toUpperCase());
+            ps.setString(75, DarFormato(txtTotalDeducciones.getText()).toUpperCase());
+            ps.setString(76, DarFormato(txtLiquidoPagable.getText()).toUpperCase());
+            ps.setString(77, txtLiteral.getText().toUpperCase());
+            
+            ps.setString(78, txtCorrelativo.getText().toUpperCase());
            
             int res = ps.executeUpdate();
             
