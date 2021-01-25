@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Liquidacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d6aa51f-ec50-4f96-8d1a-17ecf4d2e5ff">
 	<property name="ireport.zoom" value="1.9487171000000074"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="922"/>
+	<property name="ireport.y" value="832"/>
 	<parameter name="x" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -286,6 +286,9 @@
 	</pageHeader>
 	<detail>
 		<band height="652" splitType="Stretch">
+			<rectangle>
+				<reportElement x="41" y="580" width="493" height="70" uuid="cbc2ba57-c6f8-4b9b-bdea-0d35db6e5c7a"/>
+			</rectangle>
 			<rectangle>
 				<reportElement x="41" y="362" width="421" height="15" uuid="723ad1ab-5300-4da3-a7bc-924acc7d062d"/>
 			</rectangle>
@@ -893,48 +896,35 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo_interno}]]></textFieldExpression>
 			</textField>
-			<rectangle>
-				<reportElement x="41" y="580" width="493" height="70" uuid="cbc2ba57-c6f8-4b9b-bdea-0d35db6e5c7a"/>
-			</rectangle>
 			<staticText>
-				<reportElement x="41" y="640" width="115" height="10" uuid="c74d1b30-24fe-4801-8c54-d27bd37aac7b"/>
+				<reportElement x="54" y="640" width="141" height="10" uuid="c74d1b30-24fe-4801-8c54-d27bd37aac7b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ASIST. OPERACIONES]]></text>
+				<text><![CDATA[CAJA OPERACIONES EL ALTO 2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="412" y="635" width="122" height="10" uuid="28719f4f-1430-45bf-876a-8fb39e659dcd"/>
+				<reportElement x="394" y="635" width="122" height="10" uuid="28719f4f-1430-45bf-876a-8fb39e659dcd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RECIBI CONFORME]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="157" y="640" width="119" height="10" uuid="510f2d8d-d25c-4182-b293-171371a1bfc0"/>
+				<reportElement x="220" y="640" width="142" height="10" uuid="510f2d8d-d25c-4182-b293-171371a1bfc0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[RESP. AUDITORIAS]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="276" y="640" width="135" height="10" uuid="c6f7bb77-dac7-4239-87f7-224a54f54da0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[GERENTE OPERACIONES]]></text>
+				<text><![CDATA[AUDITORIAS DE OPERACIONES]]></text>
 			</staticText>
 			<line>
 				<reportElement x="41" y="629" width="493" height="1" uuid="ed6983a0-5f6c-4c26-8778-b0e89de3cee4"/>
 			</line>
 			<line>
-				<reportElement x="156" y="580" width="1" height="70" uuid="4a65baba-3a8e-4cc0-a4fc-1819d4600127"/>
+				<reportElement x="207" y="580" width="1" height="70" uuid="4a65baba-3a8e-4cc0-a4fc-1819d4600127"/>
 			</line>
 			<line>
-				<reportElement x="276" y="580" width="1" height="70" uuid="dbb6c00d-05a8-49d5-b235-937e7fdf435b"/>
-			</line>
-			<line>
-				<reportElement x="411" y="580" width="1" height="70" uuid="7227cc87-7b38-4151-b4c4-de79812590c1"/>
+				<reportElement x="374" y="580" width="1" height="70" uuid="7227cc87-7b38-4151-b4c4-de79812590c1"/>
 			</line>
 			<staticText>
 				<reportElement x="208" y="397" width="49" height="14" uuid="550fe78d-8fa6-44d8-9bb3-294120fd0f26"/>
@@ -1179,25 +1169,18 @@
 				<textFieldExpression><![CDATA[$F{importe6}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="41" y="630" width="115" height="10" uuid="3b9cb21a-6371-4a24-b049-435a913ea8b5"/>
+				<reportElement x="66" y="630" width="115" height="10" uuid="3b9cb21a-6371-4a24-b049-435a913ea8b5"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ELABORADO POR:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="159" y="630" width="115" height="10" uuid="6b88ec48-e4e2-4c6d-bd40-883fe313362f"/>
+				<reportElement x="233" y="630" width="115" height="10" uuid="6b88ec48-e4e2-4c6d-bd40-883fe313362f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REVISADO POR:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="286" y="630" width="115" height="10" uuid="440df35c-4dae-49fc-87ea-7c2150b00f53"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[APROBADO POR:]]></text>
 			</staticText>
 		</band>
 	</detail>

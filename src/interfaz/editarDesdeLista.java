@@ -26,6 +26,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author SISTEMAS
  */
+
 public class editarDesdeLista extends javax.swing.JFrame {
 
     PreparedStatement ps;

@@ -5,18 +5,23 @@
  */
 package interfaz;
 
+import com.mxrck.autocompleter.TextAutoCompleter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import static java.util.Calendar.DAY_OF_YEAR;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.util.regex.Pattern;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -33,7 +38,19 @@ public class registrarLiquidacion extends javax.swing.JFrame {
 
     PreparedStatement ps;
     ResultSet rs;
+
     
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////// DECLARACION DE LA VARIABLE AC //////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////
+    private TextAutoCompleter ac;
+    
+    
+    
+    
+  
     /* AÑO PARA EL CORRELATIVO Y PARA LA GESTION ---------------- */
     SimpleDateFormat formatoannio = new SimpleDateFormat("yy");  
     SimpleDateFormat formatogestion = new SimpleDateFormat("yyyy");
@@ -186,6 +203,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         ckImpuestos = new javax.swing.JCheckBox();
         txtCalculoRetencion = new javax.swing.JTextField();
         txtPorcentajeReal = new javax.swing.JTextField();
+        btnclick = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         coNacional = new javax.swing.JMenuItem();
@@ -224,11 +242,23 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setText("EMPRESA:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        txtEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmpresaActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 170, -1));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setText("PROPIETARIO");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, -1));
+
+        txtPropietario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPropietarioActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtPropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 295, -1));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -238,6 +268,12 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel8.setText("CLIENTE");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 110, -1, -1));
+
+        txtChofer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtChoferActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtChofer, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 323, -1));
         getContentPane().add(txtCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 130, 270, -1));
 
@@ -547,6 +583,14 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         txtPorcentajeReal.setEnabled(false);
         getContentPane().add(txtPorcentajeReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 280, 90, -1));
 
+        btnclick.setText("CLICK");
+        btnclick.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnclickActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnclick, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
+
         jMenu1.setText("CORRELATIVOS");
 
         coNacional.setText("NACIONAL");
@@ -595,7 +639,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//num
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         conexion conexionBase = new conexion();
         Connection con = null;
@@ -667,6 +711,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
             ps.setString(4, txtFechaPago.getText().toUpperCase());
             ps.setString(5, fecha2);
             ps.setString(6, txtEmpresa.getText().toUpperCase());
+            
             ps.setString(7, txtPropietario.getText().toUpperCase());
             ps.setString(8, txtChofer.getText().toUpperCase()); 
             ps.setString(9, txtCliente.getText().toUpperCase());
@@ -785,6 +830,40 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         btnTotal.setEnabled(false);
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////// PARA LISTAR TODOS LOS DATOS DE LAS EMPRESAS ///////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    private void ListarEmpresa() throws SQLException{
+        ac = new TextAutoCompleter(txtEmpresa);
+        ac.addItem("TRANSPORTE");
+        
+        conexion conexionBase = new conexion();
+        Connection con = null;
+        con = conexionBase.getConection();
+        ps = con.prepareStatement("SELECT DISTINCT empresa FROM comprobante");
+        //ps.setInt(1, conductor);
+        rs = ps.executeQuery();
+        String catalogo = null;
+        while(rs.next())
+        { 
+            catalogo = rs.getString(1);
+            ac.addItem(catalogo);
+            //System.out.println("TABLA----" + catalogo);
+        }
+        //ac.addItem(catalogo);
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private void coNacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coNacionalActionPerformed
         dcFechaConformidad.setEnabled(false);
         txtFechaPago.setEnabled(false);
@@ -1129,6 +1208,38 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ckImpuestosActionPerformed
 
+    private void txtPropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPropietarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPropietarioActionPerformed
+
+    private void txtChoferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtChoferActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtChoferActionPerformed
+
+    private void txtEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmpresaActionPerformed
+        // TODO add your handling code here:
+        //txtempresa
+        
+    }//GEN-LAST:event_txtEmpresaActionPerformed
+
+    
+    
+    //////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+    ////////////////////// BOTON CLICK /////////////////////////////////////////// 
+    //////////////////////////////////////////////////////////////////////////////
+    private void btnclickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclickActionPerformed
+        
+        try {
+            ListarEmpresa();
+            // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(registrarLiquidacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnclickActionPerformed
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -1205,6 +1316,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
         dcFecha.setDate(null);
         txtPlaca.setText(null);
         txtEmpresa.setText(null);
+        
         txtPropietario.setText(null);
         txtChofer.setText(null);
         txtCliente.setText(null);
@@ -1411,6 +1523,7 @@ public class registrarLiquidacion extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnTotal;
+    private javax.swing.JButton btnclick;
     private javax.swing.JCheckBox ckImpuestos;
     private javax.swing.JCheckBox ckSemirremolque;
     private javax.swing.JMenuItem coCisternas;

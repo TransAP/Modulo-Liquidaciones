@@ -59,9 +59,8 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         cbRuta = new javax.swing.JComboBox<>();
         btnGeneral = new javax.swing.JButton();
-        txtPlaca = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         txtGestion = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -70,6 +69,7 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnImprimir = new javax.swing.JButton();
+        cbBuscar = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -122,9 +122,6 @@ public class listarLiquidaciones extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel2.setText("PLACA");
-
         txtGestion.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtGestion.setText("TODAS LAS GESTIONES");
 
@@ -134,7 +131,7 @@ public class listarLiquidaciones extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("GESTION");
 
-        cbGestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODO", "2020", "2019" }));
+        cbGestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODO", "2021", "2020", "2019" }));
 
         btnReparar.setText("REPARAR");
         btnReparar.setEnabled(false);
@@ -168,6 +165,8 @@ public class listarLiquidaciones extends javax.swing.JFrame {
             }
         });
 
+        cbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CHOFER", "CORRELATIVO", "DRIVE", "PLACA", "PROPIETARIO" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,21 +196,19 @@ public class listarLiquidaciones extends javax.swing.JFrame {
                                     .addComponent(cbGestion, 0, 183, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnReparar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(114, 114, 114)
-                                        .addComponent(jLabel3))
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(cbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPlaca)
+                                    .addComponent(txtBuscar)
                                     .addComponent(cbRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnListar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnReparar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -234,9 +231,9 @@ public class listarLiquidaciones extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(cbGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnBuscar)
-                                .addComponent(jLabel2)))
+                                .addComponent(cbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnListar)
@@ -399,33 +396,97 @@ public class listarLiquidaciones extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         DefaultTableModel modelo =new DefaultTableModel();
-        tbLiquidaciones.setModel(modelo);
+        tbLiquidaciones.setModel(modelo);  
         boton=2;
-        
-        String gestion = (String)cbGestion.getSelectedItem();
-        
-        try{                        
-            con = conexionBase.getConection();
-            
-            String sql = "";
-            
-            if(gestion=="TODO"){
-                sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=? AND estado='activo'";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, txtPlaca.getText().toUpperCase());
-                rs = ps.executeQuery();
-            }else{
-                sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=? AND gestion=? AND='activo'";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, txtPlaca.getText().toUpperCase());
-                ps.setString(2, gestion);
-                rs = ps.executeQuery();
-            }                      
-            
+        String parametro = cbBuscar.getSelectedItem().toString();
+        String gestion = cbGestion.getSelectedItem().toString();
+        String sql = "";
+        con = conexionBase.getConection();
+        try {
+            switch (parametro) {
+                case "CHOFER":
+                    if (gestion == "TODO") {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE chofer=? AND estado='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                    } else {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE chofer=? AND gestion=? AND='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                        ps.setString(2, gestion);
+                    }
+                    break;
+                case "CORRELATIVO":
+                    if (gestion == "TODO") {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE correlativo=? AND estado='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                    } else {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE correlativo=? AND gestion=? AND='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                        ps.setString(2, gestion);
+                    }
+                    break;
+                case "DRIVE":
+                    if (gestion == "TODO") {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE (drive1=? AND estado='activo')OR(drive2=? AND estado='activo')OR(drive3=? AND estado='activo')OR(drive4=? AND estado='activo')OR(drive5=? AND estado='activo')OR(drive6=? AND estado='activo')";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                        ps.setString(2, txtBuscar.getText().toUpperCase());
+                        ps.setString(3, txtBuscar.getText().toUpperCase());
+                        ps.setString(4, txtBuscar.getText().toUpperCase());
+                        ps.setString(5, txtBuscar.getText().toUpperCase());
+                        ps.setString(6, txtBuscar.getText().toUpperCase());
+                    } else {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE (drive1=? AND gestion=? AND estado='activo')OR(drive2=? AND gestion=? AND estado='activo')OR(drive3=? AND gestion=? AND estado='activo')OR(drive4=? AND gestion=? AND estado='activo')OR(drive5=? AND gestion=? AND estado='activo')OR(drive6=? AND gestion=? AND estado='activo')";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                        ps.setString(2, gestion);
+                        ps.setString(3, txtBuscar.getText().toUpperCase());
+                        ps.setString(4, gestion);
+                        ps.setString(5, txtBuscar.getText().toUpperCase());
+                        ps.setString(6, gestion);
+                        ps.setString(7, txtBuscar.getText().toUpperCase());
+                        ps.setString(8, gestion);
+                        ps.setString(9, txtBuscar.getText().toUpperCase());
+                        ps.setString(10, gestion);
+                        ps.setString(11, txtBuscar.getText().toUpperCase());
+                        ps.setString(12, gestion);
+                    }
+                    break;
+                case "PLACA":
+                    if (gestion == "TODO") {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=? AND estado='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                    } else {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE placa=? AND gestion=? AND='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                        ps.setString(2, gestion);
+                    }
+                    break;
+                case "PROPIETARIO":
+                    if (gestion == "TODO") {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE propietario=? AND estado='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                    } else {
+                        sql = "SELECT placa, correlativo, fecha, fecha_pago_real, empresa, propietario, chofer, cliente, drives, liquido_pagable FROM comprobante WHERE propietario=? AND gestion=? AND='activo'";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, txtBuscar.getText().toUpperCase());
+                        ps.setString(2, gestion);
+                    }
+                    break;
+            }
+
+            rs = ps.executeQuery();
+
             ResultSetMetaData rsMd = rs.getMetaData();
             int cantidadColumnas = rsMd.getColumnCount();
-            
-            modelo.addColumn("PLACA");            
+
+            modelo.addColumn("PLACA");
             modelo.addColumn("CORRELATIVO");
             modelo.addColumn("FECHA");
             modelo.addColumn("FECHA PAGO");
@@ -435,17 +496,17 @@ public class listarLiquidaciones extends javax.swing.JFrame {
             modelo.addColumn("CLIENTE");
             modelo.addColumn("DRIVE");
             modelo.addColumn("PAGO");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                for(int i = 0; i < cantidadColumnas; i++){
-                    filas[i] = rs.getObject(i+1);
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    filas[i] = rs.getObject(i + 1);
                 }
-                
+
                 modelo.addRow(filas);
             }
-            txtGestion.setText("GESTION "+gestion);
-        }catch(SQLException ex){
+            txtGestion.setText("GESTION " + gestion);
+        } catch (SQLException ex) {
             System.err.println(ex.toString());
         }
         tbLiquidaciones.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -681,11 +742,11 @@ public class listarLiquidaciones extends javax.swing.JFrame {
             String RutaReporte="";
             
             if(sw2==0){
-                RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion.jasper";  // PARA EMPAQUETAR
-                //RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion.jasper"; // PARA DESARROLLO
+                //RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion.jasper";  // PARA EMPAQUETAR
+                RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion.jasper"; // PARA DESARROLLO
             }else{
-                RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion_2.jasper";  // PARA EMPAQUETAR
-                //RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion_2.jasper"; // PARA DESARROLLO
+                //RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion_2.jasper";  // PARA EMPAQUETAR
+                RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion_2.jasper"; // PARA DESARROLLO
             }
             JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile(RutaReporte);
             
@@ -744,15 +805,15 @@ public class listarLiquidaciones extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnReparar;
+    private javax.swing.JComboBox<String> cbBuscar;
     private javax.swing.JComboBox<String> cbGestion;
     private javax.swing.JComboBox<String> cbRuta;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbLiquidaciones;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JLabel txtGestion;
-    private javax.swing.JTextField txtPlaca;
     // End of variables declaration//GEN-END:variables
 }

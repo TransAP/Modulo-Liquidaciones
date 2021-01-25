@@ -106,9 +106,9 @@ public class buscarLiquidacion extends javax.swing.JFrame {
             Map<String,Object> parametros = new HashMap<String,Object>();
             parametros.put("x", a);
                        
-            String RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion.jasper";  // PARA EMPAQUETAR
-            //String RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion.jasper"; // PARA DESARROLLO
-            
+            //String RutaReporte =System.getProperty("user.dir")+"\\reportes\\Liquidacion.jasper";  // PARA EMPAQUETAR
+            String RutaReporte =System.getProperty("user.dir")+"\\src\\reportes\\Liquidacion.jasper"; // PARA DESARROLLO
+          
             JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile(RutaReporte);
             
             JasperPrint print = JasperFillManager.fillReport(jasperReport, parametros, con);

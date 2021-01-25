@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Liquidacion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d6aa51f-ec50-4f96-8d1a-17ecf4d2e5ff">
-	<property name="ireport.zoom" value="2.143588810000008"/>
+	<property name="ireport.zoom" value="1.7715610000000064"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1088"/>
+	<property name="ireport.y" value="723"/>
 	<parameter name="x" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -836,44 +836,34 @@
 				<reportElement x="41" y="576" width="493" height="70" uuid="cbc2ba57-c6f8-4b9b-bdea-0d35db6e5c7a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="41" y="636" width="115" height="10" uuid="c74d1b30-24fe-4801-8c54-d27bd37aac7b"/>
+				<reportElement x="45" y="636" width="115" height="10" uuid="c74d1b30-24fe-4801-8c54-d27bd37aac7b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ASIST. OPERACIONES]]></text>
+				<text><![CDATA[LIQUIDADOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="412" y="632" width="122" height="10" uuid="28719f4f-1430-45bf-876a-8fb39e659dcd"/>
+				<reportElement x="419" y="631" width="108" height="10" uuid="28719f4f-1430-45bf-876a-8fb39e659dcd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RECIBI CONFORME]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="156" y="636" width="119" height="10" uuid="510f2d8d-d25c-4182-b293-171371a1bfc0"/>
+				<reportElement x="169" y="636" width="115" height="10" uuid="510f2d8d-d25c-4182-b293-171371a1bfc0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[RESP. AUDITORIAS]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="275" y="635" width="135" height="10" uuid="c6f7bb77-dac7-4239-87f7-224a54f54da0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[GERENTE OPERACIONES]]></text>
+				<text><![CDATA[ASISTENTE]]></text>
 			</staticText>
 			<line>
-				<reportElement x="41" y="626" width="493" height="1" uuid="ed6983a0-5f6c-4c26-8778-b0e89de3cee4"/>
+				<reportElement x="41" y="618" width="493" height="1" uuid="ed6983a0-5f6c-4c26-8778-b0e89de3cee4"/>
 			</line>
 			<line>
-				<reportElement x="156" y="576" width="1" height="70" uuid="4a65baba-3a8e-4cc0-a4fc-1819d4600127"/>
+				<reportElement x="164" y="576" width="1" height="70" uuid="4a65baba-3a8e-4cc0-a4fc-1819d4600127"/>
 			</line>
 			<line>
-				<reportElement x="276" y="576" width="1" height="70" uuid="dbb6c00d-05a8-49d5-b235-937e7fdf435b"/>
-			</line>
-			<line>
-				<reportElement x="411" y="576" width="1" height="70" uuid="7227cc87-7b38-4151-b4c4-de79812590c1"/>
+				<reportElement x="286" y="576" width="1" height="70" uuid="7227cc87-7b38-4151-b4c4-de79812590c1"/>
 			</line>
 			<staticText>
 				<reportElement x="208" y="383" width="49" height="14" uuid="550fe78d-8fa6-44d8-9bb3-294120fd0f26"/>
@@ -969,25 +959,56 @@
 				<reportElement x="403" y="443" width="1" height="59" uuid="374c43ca-997c-40db-b767-09713fd54b5d"/>
 			</line>
 			<staticText>
-				<reportElement x="41" y="627" width="115" height="10" uuid="ab00e993-fd8f-41ec-987c-53e94a34b058"/>
+				<reportElement x="45" y="619" width="115" height="10" uuid="ab00e993-fd8f-41ec-987c-53e94a34b058"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ELABORADO POR:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="159" y="626" width="115" height="10" uuid="e093b020-0763-4a90-9f0d-db6ce5609a22"/>
+				<reportElement x="169" y="619" width="115" height="10" uuid="e093b020-0763-4a90-9f0d-db6ce5609a22"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REVISADO POR:]]></text>
 			</staticText>
+			<line>
+				<reportElement x="412" y="576" width="1" height="70" uuid="140254d1-5610-49c0-9587-3e3d2fae3fd3"/>
+			</line>
 			<staticText>
-				<reportElement x="287" y="626" width="115" height="10" uuid="ff0aa56d-94be-4ddc-85c6-628fbbd988be"/>
+				<reportElement x="291" y="619" width="115" height="10" uuid="fa687cc1-81c0-4933-a0ac-f9407a6032a7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="Arial" size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[APROBADO POR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="636" width="125" height="10" uuid="99196c77-fcff-4f45-83f7-bc710ef30058"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUDITORIAS DE OPERACIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="627" width="115" height="10" uuid="1c741fcf-4d55-417d-8e81-ffb1ca49aad8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIDIA MAYTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="628" width="115" height="10" uuid="15ec3d83-7b56-4073-8984-e23594319c7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOEMY RIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="628" width="125" height="10" uuid="41fff851-3be2-454e-83e6-adeeb2ac8672"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONICA LLANOS]]></text>
 			</staticText>
 		</band>
 	</detail>
